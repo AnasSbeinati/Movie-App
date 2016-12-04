@@ -1,0 +1,100 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:verticalSpacing="10dp"
+android:orientation="vertical"
+tools:context="com.example.anoos.movieapp.DetailActivityFragment"
+tools:showIn="@layout/activity_detail">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/detailed_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#e7e5dd"
+        android:textAlignment="center"
+        android:text="plhv"
+        android:textIsSelectable="false"
+        android:textSize="20dp"
+        android:paddingTop="10dp" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_weight="1"
+    android:orientation="horizontal">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/poster_img"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ToggleButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/myToggleButton"
+            android:textOn=""
+            android:textOff=""
+            android:layout_gravity="right" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/detailed_released_date"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="true"
+        android:clickable="false"
+        android:focusableInTouchMode="false"
+        android:focusable="false"
+        android:id="@+id/ratingBar"
+        android:numStars="5"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/scrollView" >
+
+        <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/detailed_overview"
+        android:layout_width="match_parent"
+        android:horizontalSpacing="20dp"
+        android:verticalSpacing="20dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    </ScrollView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="Reviews"
+        android:verticalSpacing="10dp"
+        android:id="@+id/reviews_button"
+        android:layout_weight=".2" />
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_weight="1"
+    android:background="#e7e5dd">
+
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/trailers_list"
+        android:layout_weight="1" />
+</LinearLayout>
+</LinearLayout>
