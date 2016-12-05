@@ -40,6 +40,12 @@ public class DetailActivityFragment extends Fragment {
     private Movie movie;
     ArrayList<Trailer> trailers;
     private ListView trailersList;
+    TextView detailed_title;
+    TextView detailed_released_date;
+    TextView detailed_overview;
+    RatingBar ratingBar;
+    ToggleButton toggleButton;
+    ImageView poster ;
     String reviews = "";
     public DetailActivityFragment() {
     }
@@ -48,23 +54,17 @@ public class DetailActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+        trailersList = (ListView) rootView.findViewById(R.id.trailers_list);
+        poster = (ImageView) rootView.findViewById(R.id.poster_img);
+        detailed_title = ((TextView) rootView.findViewById(R.id.detailed_title));
+        detailed_released_date = ((TextView) rootView.findViewById(R.id.detailed_released_date));
+        detailed_overview = ((TextView) rootView.findViewById(R.id.detailed_overview));
+        ratingBar = ((RatingBar) rootView.findViewById(R.id.ratingBar));
+        ratingBar.setNumStars(5);
         Intent intent = getActivity().getIntent();
         if (intent != null && intent.hasExtra("movie")) {
             movie = (Movie) intent.getSerializableExtra("movie");
-            trailersList = (ListView) rootView.findViewById(R.id.trailers_list);
-            new TrailersDownloader().execute();
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w500" +
-                    movie.getImagepath())
-                    .into((ImageView) rootView.findViewById(R.id.poster_img));
-            ((TextView) rootView.findViewById(R.id.detailed_title))
-                    .setText(movie.getTitle());
-            ((TextView) rootView.findViewById(R.id.detailed_released_date))
-                    .setText(movie.getDate());
-            ((TextView) rootView.findViewById(R.id.detailed_overview))
-                    .setText(movie.getOverview());
-            RatingBar ratingBar = ((RatingBar) rootView.findViewById(R.id.ratingBar));
-            ratingBar.setRating(movie.getRate()/2.0f );
-            ratingBar.setNumStars(5);
+            this.updateMovie(movie);
         }
         trailersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -92,7 +92,6 @@ public class DetailActivityFragment extends Fragment {
                 builder2.setMessage(reviews).setPositiveButton("ok", dialogClickListener).show();
             }
         });
-        final ToggleButton toggleButton;
             toggleButton = (ToggleButton) rootView.findViewById(R.id.myToggleButton);
             toggleButton.setChecked(false);
             toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.img_star_grey));
@@ -109,6 +108,19 @@ public class DetailActivityFragment extends Fragment {
             });
         return rootView;
     }
+
+    public void updateMovie(Movie movie) {
+        this.movie = movie;
+        new TrailersDownloader().execute();
+        Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w500" +
+                movie.getImagepath())
+                .into(poster);
+        detailed_title.setText(movie.getTitle());
+        detailed_released_date.setText(movie.getDate());
+        detailed_overview.setText(movie.getOverview());
+        ratingBar.setRating(movie.getRate()/2.0f );
+    }
+
     private class TrailersDownloader extends AsyncTask<String, Void, ArrayList<Trailer>> {
         @Override
         protected void onPostExecute(ArrayList<Trailer> trailers) {

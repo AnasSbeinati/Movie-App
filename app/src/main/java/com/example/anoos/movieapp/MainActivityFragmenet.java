@@ -1,6 +1,5 @@
 package com.example.anoos.movieapp;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,6 +27,7 @@ import java.util.ArrayList;
 public class MainActivityFragmenet extends Fragment {
 
     private ArrayList<Movie> movies;
+    Communicator communicator;
     View v;
     GridView gridView;
 
@@ -53,9 +53,9 @@ public class MainActivityFragmenet extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Movie movie = movies.get(i);
-                    Intent intent = new Intent(getActivity(),DetailActivity.class);
-                    intent.putExtra("movie",movie);
-                    startActivity(intent);
+                    if(movie!=null) {
+                        communicator.respond(movie);
+                    }
                 }
             });
             return v;
@@ -140,6 +140,14 @@ public class MainActivityFragmenet extends Fragment {
             }
             return movies;
         }
+    }
+
+    public interface Communicator
+    {
+        public void respond(Movie movie);
+    }
+    public void setCommunicator(Communicator c){
+        communicator=c;
     }
 
 }

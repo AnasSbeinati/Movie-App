@@ -1,6 +1,5 @@
 package com.example.anoos.movieapp;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,17 +7,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
-    Fragment mainFragment;
-
+public class MainActivity extends AppCompatActivity implements MainActivityFragmenet.Communicator{
+    MainActivityFragmenet mainFragment;
+    DetailActivityFragment detailActivityFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
+        mainFragment=(MainActivityFragmenet)getSupportFragmentManager().findFragmentById(R.id.fragment);
+        mainFragment.setCommunicator(this);
     }
 
     @Override
@@ -43,5 +42,19 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void respond(Movie movie) {
+        detailActivityFragment=(DetailActivityFragment)getSupportFragmentManager().findFragmentById(R.id.fragment1);
+        if(detailActivityFragment!=null && detailActivityFragment.isVisible()){
+            detailActivityFragment.updateMovie(movie);
+        }
+        else{
+            Intent intent = new Intent(this, DetailActivity.class);
+            intent.putExtra("movie", movie);
+            startActivity(intent);
+        }
+
     }
 }

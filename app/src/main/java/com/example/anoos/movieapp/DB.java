@@ -50,15 +50,17 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public boolean insertMovie (Movie movie) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("id", movie.getId());
-        contentValues.put("rating", movie.getRate());
-        contentValues.put("date", movie.getDate());
-        contentValues.put("title", movie.getTitle());
-        contentValues.put("overview", movie.getOverview());
-        contentValues.put("poster", movie.getImagepath());
-        db.insert(this.TABLE_NAME, null, contentValues);
+        if(movie != null) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("id", movie.getId());
+            contentValues.put("rating", movie.getRate());
+            contentValues.put("date", movie.getDate());
+            contentValues.put("title", movie.getTitle());
+            contentValues.put("overview", movie.getOverview());
+            contentValues.put("poster", movie.getImagepath());
+            db.insert(this.TABLE_NAME, null, contentValues);
+        }
         return true;
     }
     public ArrayList<Movie> getMovies() {

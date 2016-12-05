@@ -9,5 +9,6 @@
         android:horizontalSpacing="0dp"
         android:verticalSpacing="0dp"
         android:id="@+id/imageView"
-        android:layout_gravity="center_vertical" />
+        android:layout_gravity="center_vertical"
+        android:adjustViewBounds="true" />
 </LinearLayout>
