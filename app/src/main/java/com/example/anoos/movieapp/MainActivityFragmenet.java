@@ -90,7 +90,7 @@ public class MainActivityFragmenet extends Fragment {
                     HttpURLConnection urlConnection;
                     String baseUrl = "http://api.themoviedb.org/3/movie/";
                     baseUrl += type + "?";
-                    String api_key = "7c24faa8de193ba5fe2198c770fd1429";
+                    String api_key = "";
                     Uri.Builder builder = Uri.parse(baseUrl).buildUpon();
                     builder.appendQueryParameter("api_key", api_key);
                     URL url = new URL(builder.build().toString());
